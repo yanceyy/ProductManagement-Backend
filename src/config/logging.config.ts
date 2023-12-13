@@ -28,10 +28,7 @@ export default registerAs("logging", () => {
 
   return {
     level: process.env.LOG_LEVEL || "debug",
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json(),
-    ),
+    format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
     transports: transports,
   };
 });

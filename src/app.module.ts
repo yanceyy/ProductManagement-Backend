@@ -5,12 +5,15 @@ import process from "process";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { WinstonModule } from "nest-winston";
 import loggingConfig from "./config/logging.config";
+import { MongooseModule } from "@nestjs/mongoose";
+import { UserModule } from "./user/user.module";
+import dbConfig from "./config/db.config";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [loggingConfig],
+      load: [loggingConfig, dbConfig],
       cache: true,
       envFilePath: [`.env.${process.env.NODE_ENV}`],
     }),
@@ -21,6 +24,14 @@ import loggingConfig from "./config/logging.config";
       }),
       inject: [ConfigService],
     }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        ...(await configService.get("mongoDB")),
+      }),
+      inject: [ConfigService],
+    }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
