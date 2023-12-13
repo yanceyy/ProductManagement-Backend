@@ -1,17 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import * as argon2 from "argon2";
+import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
 
 @Controller("user")
+@UseFilters(MongoErrorFilter)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
+    console.log("sss");
     createUserDto.password = await argon2.hash(createUserDto.password);
-
     const res = await this.userService.create(createUserDto);
 
     // @ts-expect-error res has implicit attributes like _doc
@@ -22,11 +24,6 @@ export class UserController {
   @Get()
   findAll() {
     return this.userService.findAll();
-  }
-
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.userService.findOne(id);
   }
 
   @Patch(":id")

@@ -1,5 +1,5 @@
 import { registerAs } from "@nestjs/config";
-import winston from "winston";
+import * as winston from "winston";
 import { utilities as nestWinstonModuleUtilities } from "nest-winston";
 import type { ConsoleTransportInstance, FileTransportInstance } from "winston/lib/winston/transports";
 

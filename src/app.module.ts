@@ -16,7 +16,7 @@ import dbConfig from "./config/db.config";
       isGlobal: true,
       load: [loggingConfig, dbConfig],
       cache: true,
-      envFilePath: [`.env.${process.env.NODE_ENV}`],
+      envFilePath: [`.env.${process?.env.NODE_ENV ?? "local"}`],
     }),
     WinstonModule.forRootAsync({
       imports: [ConfigModule],
