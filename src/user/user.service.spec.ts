@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { UserService } from "./user.service";
-import { MongooseModule } from '@nestjs/mongoose'
-import { User, UserSchema } from '../schemas/user.schema'
+import { MongooseModule } from "@nestjs/mongoose";
+import { User, UserSchema } from "../schemas/user.schema";
 
 describe("UserService", () => {
   let service: UserService;

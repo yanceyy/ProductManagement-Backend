@@ -7,6 +7,7 @@ import { WinstonModule } from "nest-winston";
 import loggingConfig from "./config/logging.config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { UserModule } from "./user/user.module";
+import { AuthModule } from "./auth/auth.module";
 import dbConfig from "./config/db.config";
 
 @Module({
@@ -32,6 +33,7 @@ import dbConfig from "./config/db.config";
       inject: [ConfigService],
     }),
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
