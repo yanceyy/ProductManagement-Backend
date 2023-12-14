@@ -12,7 +12,6 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    console.log("sss");
     createUserDto.password = await argon2.hash(createUserDto.password);
     const res = await this.userService.create(createUserDto);
 

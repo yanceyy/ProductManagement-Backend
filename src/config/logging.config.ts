@@ -3,7 +3,7 @@ import * as winston from "winston";
 import { utilities as nestWinstonModuleUtilities } from "nest-winston";
 import type { ConsoleTransportInstance, FileTransportInstance } from "winston/lib/winston/transports";
 
-export default registerAs("logging", () => {
+export const configFactory = () => {
   const transports: (FileTransportInstance | ConsoleTransportInstance)[] = [
     // File transports
     new winston.transports.File({ filename: "error.log", level: "error" }),
@@ -31,4 +31,6 @@ export default registerAs("logging", () => {
     format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
     transports: transports,
   };
-});
+};
+
+export default registerAs("logging", configFactory);
