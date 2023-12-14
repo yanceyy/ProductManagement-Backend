@@ -5,13 +5,18 @@ import { Model } from "mongoose";
 import { DeleteResult } from "mongodb";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import * as argon2 from "argon2";
 
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
+    createUserDto.password = await argon2.hash(createUserDto.password);
     const createdCat = new this.userModel(createUserDto);
-    return createdCat.save();
+    const res = await createdCat.save();
+    // @ts-expect-error res has implicit attributes like _doc
+    delete res._doc.password;
+    return res;
   }
 
   findAll() {

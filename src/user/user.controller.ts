@@ -2,7 +2,6 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters } from "@
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
-import * as argon2 from "argon2";
 import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
 
 @Controller("user")
@@ -12,12 +11,7 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    createUserDto.password = await argon2.hash(createUserDto.password);
-    const res = await this.userService.create(createUserDto);
-
-    // @ts-expect-error res has implicit attributes like _doc
-    delete res._doc.password;
-    return res;
+    return this.userService.create(createUserDto);
   }
 
   @Get()

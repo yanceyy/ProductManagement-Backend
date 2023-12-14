@@ -21,3 +21,7 @@ export const closeInMemoryDatabaseConnection = async () => {
   await mongoose.disconnect();
   if (mongod) await mongod.stop();
 };
+
+export const clearInMemoryDatabaseConnection = async () => {
+  if (mongod) await mongod.cleanup();
+};

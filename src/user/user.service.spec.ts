@@ -6,6 +6,7 @@ import {
   closeInMemoryDatabaseConnection,
   createInMemoryDatabaseModule,
 } from "../test/helper/inMemoryDatabase.mock.module";
+import { CreateUserDto } from "./dto/create-user.dto";
 
 describe("UserService", () => {
   let service: UserService;
@@ -21,7 +22,16 @@ describe("UserService", () => {
 
   afterEach(async () => await closeInMemoryDatabaseConnection());
 
-  it("should be defined", () => {
-    expect(service).toBeDefined();
+  it("should create user and return expected inf", async () => {
+    const payload = new CreateUserDto();
+    payload.username = "user1";
+    payload.password = "password1";
+
+    const user = await service.create(payload);
+    expect(user.username).toEqual(payload.username);
+    expect(user.password).toBeUndefined();
+
+    expect(user).toHaveProperty("__v");
+    expect(user).toHaveProperty("create_time");
   });
 });
