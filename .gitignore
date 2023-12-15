@@ -37,3 +37,5 @@ lerna-debug.log*
 # Env variable
 .env.*
 !.env.local
+
+/upload
