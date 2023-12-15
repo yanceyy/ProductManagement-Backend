@@ -15,10 +15,10 @@ export class MongoErrorFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     let message: string, statusCode: number;
-
     switch (exception.code) {
       case 11000: {
-        message = "username already Exists";
+        const [name, value] = Object.entries(exception.keyValue)[0];
+        message = `Field(${name}: ${value}) already Exists`;
         statusCode = 400;
         break;
       }

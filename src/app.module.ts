@@ -8,6 +8,7 @@ import loggingConfig from "./config/logging.config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
+import { RoleModule } from "./role/role.module";
 import dbConfig from "./config/db.config";
 
 @Module({
@@ -34,6 +35,7 @@ import dbConfig from "./config/db.config";
     }),
     UserModule,
     AuthModule,
+    RoleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
