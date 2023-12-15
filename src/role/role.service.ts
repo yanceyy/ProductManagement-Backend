@@ -4,14 +4,20 @@ import { UpdateRoleDto } from "./dto/update-role.dto";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Role } from "../schemas/role.schema";
+import { User } from "../schemas/user.schema";
 
 @Injectable()
 export class RoleService {
   constructor(@InjectModel(Role.name) private roleModel: Model<Role>) {}
-  create(createRoleDto: CreateRoleDto) {
+  create(user: User, createRoleDto: CreateRoleDto) {
     const { name } = createRoleDto;
-    // TODO: get username from JWT
-    return this.roleModel.create({ name, auth_grant_username: "user1", auth_grant_time: Date.now() });
+    const { username } = user;
+
+    return this.roleModel.create({
+      name,
+      auth_grant_time: Date.now(),
+      auth_grant_username: username,
+    });
   }
 
   findAll() {
@@ -22,11 +28,12 @@ export class RoleService {
     return this.roleModel.findById(id);
   }
 
-  updatePolicies(id: string, updateRoleDto: UpdateRoleDto) {
+  updatePolicies(id: string, user: User, updateRoleDto: UpdateRoleDto) {
     const { policies } = updateRoleDto;
+    const { username } = user;
     return this.roleModel.findOneAndUpdate(
       { _id: id },
-      { policies, auth_grant_time: Date.now() },
+      { policies, auth_grant_time: Date.now(), auth_grant_username: username },
       {
         new: true,
       },

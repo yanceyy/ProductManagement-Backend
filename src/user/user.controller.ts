@@ -3,9 +3,11 @@ import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
+import { Auth } from "../decorator/auth.decorator";
 
 @Controller("user")
 @UseFilters(MongoErrorFilter)
+@Auth()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
