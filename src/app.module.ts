@@ -9,20 +9,23 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
 import { RoleModule } from "./role/role.module";
+import { UploadModule } from "./upload/upload.module";
 import dbConfig from "./config/db.config";
-
+import uploadConfig from "./config/upload.config";
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { join } from "path";
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [loggingConfig, dbConfig],
+      load: [loggingConfig, dbConfig, uploadConfig],
       cache: true,
       envFilePath: [`.env.${process?.env.NODE_ENV ?? "local"}`],
     }),
     WinstonModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        ...(await configService.get("logging")),
+        ...(await configService.get("upload")),
       }),
       inject: [ConfigService],
     }),
@@ -33,9 +36,14 @@ import dbConfig from "./config/db.config";
       }),
       inject: [ConfigService],
     }),
+    ServeStaticModule.forRoot({
+      serveRoot: "/files",
+      rootPath: join(__dirname, "..", "upload"),
+    }),
     UserModule,
     AuthModule,
     RoleModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
