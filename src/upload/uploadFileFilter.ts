@@ -14,12 +14,12 @@ export function filterFilter(type: string) {
   };
 }
 
-export function Upload(field = "file", options: MulterOptions) {
+export function upload(field = "file", options: MulterOptions) {
   return applyDecorators(UseInterceptors(FileInterceptor(field, options)));
 }
 
 export function RequireUploadImage(field = "file") {
-  return Upload(field, {
+  return upload(field, {
     limits: FILE_SIZE_LIMITS,
     fileFilter: filterFilter("image"),
   } as MulterOptions);

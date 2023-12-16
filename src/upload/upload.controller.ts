@@ -6,11 +6,11 @@ import { CUser } from "../decorator/user.decorator";
 import { UploadService } from "./upload.service";
 
 @Controller("upload")
+@Auth()
 export class UploadController {
   constructor(private uploadService: UploadService) {}
   @Post("image")
   @RequireUploadImage()
-  @Auth()
   async uploadImage(@UploadedFile() file: Express.Multer.File, @CUser() user: User) {
     await this.uploadService.createUploadMeta(file, user);
     return file;

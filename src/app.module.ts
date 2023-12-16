@@ -15,6 +15,7 @@ import uploadConfig from "./config/upload.config";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
 import { CategoryModule } from "./category/category.module";
+import { ProductModule } from "./product/product.module";
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -46,6 +47,7 @@ import { CategoryModule } from "./category/category.module";
     RoleModule,
     UploadModule,
     CategoryModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
