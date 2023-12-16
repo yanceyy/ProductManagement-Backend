@@ -13,8 +13,8 @@ export class CategoryService {
     return new this.categoryModel({ ...createCategoryDto, createUsername: createUser.username }).save();
   }
 
-  findAll() {
-    return this.categoryModel.find();
+  findAll(pCategoryId: string) {
+    return this.categoryModel.find({ pCategoryId });
   }
 
   findOne(id: string) {

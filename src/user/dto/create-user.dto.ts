@@ -16,5 +16,5 @@ export class CreateUserDto {
   phone: string;
 
   @IsOptional()
-  role_id: string;
+  roleId: string;
 }
