@@ -15,8 +15,8 @@ export class RoleService {
 
     return this.roleModel.create({
       name,
-      auth_grant_time: Date.now(),
-      auth_grant_username: username,
+      authGrantTime: Date.now(),
+      authGrantUsername: username,
     });
   }
 
@@ -33,7 +33,7 @@ export class RoleService {
     const { username } = user;
     return this.roleModel.findOneAndUpdate(
       { _id: id },
-      { policies, auth_grant_time: Date.now(), auth_grant_username: username },
+      { policies, authGrantTime: Date.now(), authGrantUsername: username },
       {
         new: true,
       },

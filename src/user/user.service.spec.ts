@@ -32,6 +32,6 @@ describe("UserService", () => {
     expect(user.password).toBeUndefined();
 
     expect(user).toHaveProperty("__v");
-    expect(user).toHaveProperty("create_time");
+    expect(user).toHaveProperty("createTime");
   });
 });

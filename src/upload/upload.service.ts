@@ -10,8 +10,8 @@ export class UploadService {
 
   async createUploadMeta(file: Express.Multer.File, user: User): Promise<UploadMeta> {
     const uploadMeta = new this.metaModel({
-      upload_filename: file.filename,
-      upload_username: user.username,
+      uploadFilename: file.filename,
+      uploadUsername: user.username,
     });
 
     await uploadMeta.save();

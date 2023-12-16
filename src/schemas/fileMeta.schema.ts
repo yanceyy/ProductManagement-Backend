@@ -3,13 +3,13 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 @Schema()
 export class UploadMeta {
   @Prop({ required: true })
-  upload_username: string;
+  uploadUsername: string;
 
   @Prop({ required: true, unique: true })
-  upload_filename: string;
+  uploadFilename: string;
 
   @Prop({ default: Date.now })
-  create_time: number;
+  createTime: number;
 }
 
 export const UploadMetaSchema = SchemaFactory.createForClass(UploadMeta);

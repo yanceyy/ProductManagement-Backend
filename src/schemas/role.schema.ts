@@ -6,13 +6,13 @@ export class Role {
   name: string;
 
   @Prop({ required: true })
-  auth_grant_username: string;
+  authGrantUsername: string;
 
   @Prop({ required: true })
-  auth_grant_time: number;
+  authGrantTime: number;
 
   @Prop({ default: Date.now })
-  create_time: number;
+  createTime: number;
 
   @Prop()
   policies: Array<string>;

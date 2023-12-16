@@ -12,13 +12,13 @@ export class User {
   phone: string;
 
   @Prop({ default: Date.now })
-  create_time: number;
+  createTime: number;
 
   @Prop()
   email: string;
 
   @Prop()
-  role_id: string;
+  roleId: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
