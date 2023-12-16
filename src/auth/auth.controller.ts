@@ -7,7 +7,7 @@ import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
 @UseFilters(MongoErrorFilter)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  @Post()
+  @Post("login")
   login(@Body() loginFormData: LoginDto) {
     return this.authService.login(loginFormData);
   }
