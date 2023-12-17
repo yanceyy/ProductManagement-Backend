@@ -16,13 +16,22 @@ import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
 import { CategoryModule } from "./category/category.module";
 import { ProductModule } from "./product/product.module";
+import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
+import { APP_GUARD } from "@nestjs/core";
+import throttleConfig from "./config/throttle.config";
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [loggingConfig, dbConfig, uploadConfig],
+      load: [loggingConfig, dbConfig, uploadConfig, throttleConfig],
       cache: true,
       envFilePath: [`.env.${process?.env.NODE_ENV ?? "local"}`],
+    }),
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => config.get("throttle").global,
     }),
     WinstonModule.forRootAsync({
       imports: [ConfigModule],
@@ -50,6 +59,12 @@ import { ProductModule } from "./product/product.module";
     ProductModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}
