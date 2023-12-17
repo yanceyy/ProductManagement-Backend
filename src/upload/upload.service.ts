@@ -2,7 +2,7 @@ import { UploadMeta } from "../schemas/fileMeta.schema";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "../schemas/user.schema";
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 
 @Injectable()
 export class UploadService {
@@ -16,5 +16,9 @@ export class UploadService {
 
     await uploadMeta.save();
     return uploadMeta;
+  }
+
+  async deleteImage(file: string, user: User) {
+    return this.metaModel.deleteOne({uploadFilename:file});
   }
 }

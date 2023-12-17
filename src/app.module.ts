@@ -51,6 +51,10 @@ import throttleConfig from "./config/throttle.config";
       serveRoot: "/files",
       rootPath: join(__dirname, "..", "upload"),
     }),
+    // serve complied front end project files
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "../build"),
+    }),
     UserModule,
     AuthModule,
     RoleModule,

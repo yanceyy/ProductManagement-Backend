@@ -3,12 +3,14 @@ import { UserService } from "../user/user.service";
 import { LoginDto } from "./dto/login.dto";
 import * as argon2 from "argon2";
 import { JwtService } from "@nestjs/jwt";
+import { RoleService } from "../role/role.service";
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwt: JwtService,
+    private readonly roleService: RoleService,
   ) {}
 
   async login(loginFormData: LoginDto) {
@@ -20,10 +22,17 @@ export class AuthService {
 
     if (!psMatch) throw new BadRequestException("wrong password");
 
+    const {id, roleId} = user;
+    let role:Array<string>= [];
+    if(roleId){
+      const grantPermission = await this.roleService.findOne(roleId);
+      role = grantPermission.policies;
+    }
+
     const payload = {
-      username: user.username,
-      id: user.id,
-      role: [],
+      username,
+      id,
+      role,
     };
 
     return {
