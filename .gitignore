@@ -39,3 +39,6 @@ lerna-debug.log*
 !.env.local
 
 /upload
+Dockerfile
+fly.toml
+build
