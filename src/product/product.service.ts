@@ -4,6 +4,7 @@ import { UpdateProductDto } from "./dto/update-product.dto";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Product } from "../schemas/product.schema";
+import { paginationFind } from "../common/pagination";
 
 @Injectable()
 export class ProductService {
@@ -12,8 +13,8 @@ export class ProductService {
     return new this.productModel(createProductDto).save();
   }
 
-  findAll() {
-    return this.productModel.find();
+  async findAll(pageNum: number, pageSize: number) {
+    return paginationFind(this.productModel, pageNum, pageSize);
   }
 
   findOne(id: string) {
@@ -24,7 +25,23 @@ export class ProductService {
     return this.productModel.findOneAndUpdate({ _id: id }, updateProductDto, { new: true });
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.productModel.deleteOne({ _id: id });
+  }
+
+  async search(pageNum: number, pageSize: number, productName: string, productDesc: string) {
+    if (!productName && !productName) {
+      return await this.findAll(pageNum, pageSize);
+    }
+
+    let condition = {};
+
+    if (productName) {
+      condition = { name: new RegExp(`^.*${productName}.*$`, "i") };
+    } else if (productDesc) {
+      condition = { desc: new RegExp(`^.*${productDesc}.*$`, "im") };
+    }
+
+    return paginationFind(this.productModel, pageNum, pageSize, condition);
   }
 }

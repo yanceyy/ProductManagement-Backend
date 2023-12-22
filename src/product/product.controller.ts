@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestjs/common";
 import { ProductService } from "./product.service";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { UpdateProductDto } from "./dto/update-product.dto";
@@ -13,8 +13,13 @@ export class ProductController {
   }
 
   @Get()
-  findAll() {
-    return this.productService.findAll();
+  findAll(@Query("pageNum") pageNum: number, @Query("pageSize") pageSize: number,) {
+    return this.productService.findAll(pageNum, pageSize);
+  }
+
+  @Get("/search")
+  search(@Query("pageNum") pageNum: number, @Query("pageSize") pageSize: number, @Query("productName") productName: string, @Query("productDesc") productDesc: string ) {
+    return this.productService.search(pageNum, pageSize, productName, productDesc);
   }
 
   @Get(":id")
@@ -29,6 +34,6 @@ export class ProductController {
 
   @Delete(":id")
   remove(@Param("id") id: string) {
-    return this.productService.remove(+id);
+    return this.productService.remove(id);
   }
 }
