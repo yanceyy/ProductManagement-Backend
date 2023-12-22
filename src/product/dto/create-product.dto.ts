@@ -8,14 +8,14 @@ export class CreateProductDto {
   @IsNotEmpty({ message: "price can't be empty" })
   price: number;
 
-  @IsOptional()
+  @IsNotEmpty({ message: "product detail can't be empty" })
+  @MinLength(5, { message: "product detail must be longer than 5" })
   desc: string;
 
   @IsOptional()
   status: number;
 
-  @IsNotEmpty({ message: "product detail can't be empty" })
-  @MinLength(5, { message: "product detail must be longer than 5" })
+  @IsOptional()
   detail: string;
 
   @IsNotEmpty({ message: "category Id can't be empty" })

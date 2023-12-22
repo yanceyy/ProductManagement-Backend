@@ -36,7 +36,7 @@ import throttleConfig from "./config/throttle.config";
     WinstonModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        ...(await configService.get("upload")),
+        ...(await configService.get("logging")),
       }),
       inject: [ConfigService],
     }),

@@ -22,9 +22,9 @@ export class AuthService {
 
     if (!psMatch) throw new BadRequestException("wrong password");
 
-    const {id, roleId} = user;
-    let role:Array<string>= [];
-    if(roleId){
+    const { id, roleId } = user;
+    let role: Array<string> = [];
+    if (roleId) {
       const grantPermission = await this.roleService.findOne(roleId);
       role = grantPermission.policies;
     }

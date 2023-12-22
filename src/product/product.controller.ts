@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestj
 import { ProductService } from "./product.service";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { UpdateProductDto } from "./dto/update-product.dto";
+import { Auth } from "../decorator/auth.decorator";
 
 @Controller("product")
+@Auth()
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
@@ -13,12 +15,17 @@ export class ProductController {
   }
 
   @Get()
-  findAll(@Query("pageNum") pageNum: number, @Query("pageSize") pageSize: number,) {
+  findAll(@Query("pageNum") pageNum: number, @Query("pageSize") pageSize: number) {
     return this.productService.findAll(pageNum, pageSize);
   }
 
   @Get("/search")
-  search(@Query("pageNum") pageNum: number, @Query("pageSize") pageSize: number, @Query("productName") productName: string, @Query("productDesc") productDesc: string ) {
+  search(
+    @Query("pageNum") pageNum: number,
+    @Query("pageSize") pageSize: number,
+    @Query("productName") productName: string,
+    @Query("productDesc") productDesc: string,
+  ) {
     return this.productService.search(pageNum, pageSize, productName, productDesc);
   }
 
