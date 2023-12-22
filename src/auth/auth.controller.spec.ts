@@ -10,6 +10,8 @@ import { User, UserSchema } from "../schemas/user.schema";
 import { UserService } from "../user/user.service";
 import { createJWTModule } from "../test/helper/jwt.mock.module";
 import { createWinstonModule } from "../test/helper/winston.mock.module";
+import { RoleService } from "../role/role.service";
+import { Role, RoleSchema } from "../schemas/role.schema";
 
 describe("AuthController", () => {
   let controller: AuthController;
@@ -20,10 +22,11 @@ describe("AuthController", () => {
         createInMemoryDatabaseModule(),
         createJWTModule(),
         createWinstonModule(),
+        MongooseModule.forFeature([{ name: Role.name, schema: RoleSchema }]),
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
       ],
       controllers: [AuthController],
-      providers: [AuthService, UserService],
+      providers: [AuthService, UserService, RoleService],
     }).compile();
 
     controller = module.get<AuthController>(AuthController);

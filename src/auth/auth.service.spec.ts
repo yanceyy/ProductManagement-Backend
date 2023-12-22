@@ -10,6 +10,8 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { User, UserSchema } from "../schemas/user.schema";
 import { CreateUserDto } from "../user/dto/create-user.dto";
 import { LoginDto } from "./dto/login.dto";
+import { RoleService } from "../role/role.service";
+import { Role, RoleSchema } from "../schemas/role.schema";
 
 describe("AuthService", () => {
   let authservice: AuthService;
@@ -20,9 +22,10 @@ describe("AuthService", () => {
       imports: [
         createJWTModule(),
         createInMemoryDatabaseModule(),
+        MongooseModule.forFeature([{ name: Role.name, schema: RoleSchema }]),
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
       ],
-      providers: [AuthService, UserService],
+      providers: [AuthService, UserService, RoleService],
     }).compile();
 
     authservice = module.get<AuthService>(AuthService);

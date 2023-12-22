@@ -1,7 +1,8 @@
-import { IsNotEmpty, IsOptional } from "class-validator";
+import { IsNotEmpty, IsOptional, MinLength } from "class-validator";
 
 export class CreateProductDto {
   @IsNotEmpty({ message: "product name can't be empty" })
+  @MinLength(5, { message: "product name must be longer than 5" })
   name: string;
 
   @IsNotEmpty({ message: "price can't be empty" })
@@ -13,7 +14,8 @@ export class CreateProductDto {
   @IsOptional()
   status: number;
 
-  @IsOptional()
+  @IsNotEmpty({ message: "product detail can't be empty" })
+  @MinLength(5, { message: "product detail must be longer than 5" })
   detail: string;
 
   @IsNotEmpty({ message: "category Id can't be empty" })
