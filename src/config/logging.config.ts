@@ -1,6 +1,5 @@
 import { registerAs } from "@nestjs/config";
 import * as winston from "winston";
-import { utilities as nestWinstonModuleUtilities } from "nest-winston";
 import type { ConsoleTransportInstance, FileTransportInstance } from "winston/lib/winston/transports";
 
 export const configFactory = () => {
@@ -17,10 +16,8 @@ export const configFactory = () => {
         format: winston.format.combine(
           winston.format.timestamp(),
           winston.format.ms(),
-          nestWinstonModuleUtilities.format.nestLike("admin-board", {
-            colors: true,
-            prettyPrint: true,
-          }),
+          winston.format.splat(),
+          winston.format.json(),
         ),
       }),
     );
@@ -28,7 +25,7 @@ export const configFactory = () => {
 
   return {
     level: process.env.LOG_LEVEL || "debug",
-    format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
+    format: winston.format.combine(winston.format.timestamp(), winston.format.splat(), winston.format.json()),
     transports: transports,
   };
 };

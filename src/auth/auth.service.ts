@@ -1,9 +1,11 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import { UserService } from "../user/user.service";
 import { LoginDto } from "./dto/login.dto";
 import * as argon2 from "argon2";
 import { JwtService } from "@nestjs/jwt";
 import { RoleService } from "../role/role.service";
+import { WINSTON_MODULE_PROVIDER } from "nest-winston";
+import { Logger } from "winston";
 
 @Injectable()
 export class AuthService {
@@ -11,10 +13,14 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly jwt: JwtService,
     private readonly roleService: RoleService,
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
   ) {}
 
   async login(loginFormData: LoginDto) {
     const { username, password } = loginFormData;
+
+    this.logger.info({ name: `${AuthService.name}:login`, payload: { username } });
+
     const user = await this.userService.findOne({ username });
     if (!user) throw new BadRequestException("user doesn't exit");
 
@@ -34,6 +40,8 @@ export class AuthService {
       id,
       role,
     };
+
+    this.logger.info({ name: `${AuthService.name}:login:success`, payload: { username } });
 
     return {
       ...payload,

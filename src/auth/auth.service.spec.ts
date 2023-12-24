@@ -12,6 +12,7 @@ import { CreateUserDto } from "../user/dto/create-user.dto";
 import { LoginDto } from "./dto/login.dto";
 import { RoleService } from "../role/role.service";
 import { Role, RoleSchema } from "../schemas/role.schema";
+import { createWinstonModule } from "../test/helper/winston.mock.module";
 
 describe("AuthService", () => {
   let authservice: AuthService;
@@ -22,6 +23,7 @@ describe("AuthService", () => {
       imports: [
         createJWTModule(),
         createInMemoryDatabaseModule(),
+        createWinstonModule(),
         MongooseModule.forFeature([{ name: Role.name, schema: RoleSchema }]),
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
       ],

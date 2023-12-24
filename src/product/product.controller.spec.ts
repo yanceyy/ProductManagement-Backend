@@ -7,6 +7,7 @@ import {
 } from "../test/helper/inMemoryDatabase.mock.module";
 import { MongooseModule } from "@nestjs/mongoose";
 import { Product, ProductSchema } from "../schemas/product.schema";
+import { createWinstonModule } from "../test/helper/winston.mock.module";
 
 describe("ProductController", () => {
   let controller: ProductController;
@@ -15,6 +16,7 @@ describe("ProductController", () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         createInMemoryDatabaseModule(),
+        createWinstonModule(),
         MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
       ],
       controllers: [ProductController],

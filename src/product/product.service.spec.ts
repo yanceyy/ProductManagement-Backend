@@ -6,6 +6,7 @@ import {
   closeInMemoryDatabaseConnection,
   createInMemoryDatabaseModule,
 } from "../test/helper/inMemoryDatabase.mock.module";
+import { createWinstonModule } from "../test/helper/winston.mock.module";
 
 describe("ProductService", () => {
   let service: ProductService;
@@ -14,6 +15,7 @@ describe("ProductService", () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         createInMemoryDatabaseModule(),
+        createWinstonModule(),
         MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
       ],
       providers: [ProductService],
