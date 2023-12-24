@@ -19,6 +19,6 @@ export class UploadController {
   @Delete("image/:id")
   @RequireUploadImage()
   async deleteImage(@Param("id") imgId, @CUser() user: User) {
-    return this.uploadService.deleteImage(imgId, user);
+    return this.uploadService.deleteImage(imgId);
   }
 }
