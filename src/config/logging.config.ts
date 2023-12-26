@@ -1,12 +1,25 @@
 import { registerAs } from "@nestjs/config";
 import * as winston from "winston";
+import DailyRotateFile from "winston-daily-rotate-file";
 import type { ConsoleTransportInstance, FileTransportInstance } from "winston/lib/winston/transports";
 
 export const configFactory = () => {
-  const transports: (FileTransportInstance | ConsoleTransportInstance)[] = [
+  const transports: (FileTransportInstance | ConsoleTransportInstance | DailyRotateFile)[] = [
     // File transports
-    new winston.transports.File({ filename: "error.log", level: "error" }),
-    new winston.transports.File({ filename: "combined.log" }),
+    new DailyRotateFile({
+      level: "error",
+      dirname: "logs",
+      filename: "error-%DATE%.log",
+      datePattern: "YYYY-MM-DD",
+      maxSize: "512k",
+    }),
+    new DailyRotateFile({
+      level: "info",
+      dirname: "logs",
+      filename: "combined-%DATE%.log",
+      datePattern: "YYYY-MM-DD",
+      maxSize: "512k",
+    }),
   ];
 
   if (process.env.NODE_ENV !== "production") {
