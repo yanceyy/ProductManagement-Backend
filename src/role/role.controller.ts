@@ -5,11 +5,12 @@ import { UpdateRoleDto } from "./dto/update-role.dto";
 import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
 import { CUser } from "../decorator/user.decorator";
 import { User } from "../schemas/user.schema";
-import { Auth } from "../decorator/auth.decorator";
+import { PolicyGard } from "../decorator/policy.decorator";
+import { POLICIES } from "./policies";
 
 @Controller("role")
 @UseFilters(MongoErrorFilter)
-@Auth()
+@PolicyGard(POLICIES.manageRole)
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
@@ -25,7 +26,7 @@ export class RoleController {
 
   @Get(":id")
   findOne(@Param("id") id: string) {
-    return this.roleService.findOne(id);
+    return this.roleService.findOne({ _id: id });
   }
 
   @Patch(":id")

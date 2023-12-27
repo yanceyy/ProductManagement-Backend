@@ -15,6 +15,7 @@ export function Auth() {
       if (method === "constructor") {
         continue;
       }
+
       const desc = Object.getOwnPropertyDescriptor(target.prototype, method);
       if (desc && desc.value) {
         applyDecorators(UseGuards(AuthGuard("jwt")))(target.prototype, method, desc);

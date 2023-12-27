@@ -3,11 +3,12 @@ import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
-import { Auth } from "../decorator/auth.decorator";
+import { PolicyGard } from "../decorator/policy.decorator";
+import { POLICIES } from "../role/policies";
 
 @Controller("user")
 @UseFilters(MongoErrorFilter)
-@Auth()
+@PolicyGard(POLICIES.manageUser)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

@@ -2,10 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestj
 import { ProductService } from "./product.service";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { UpdateProductDto } from "./dto/update-product.dto";
-import { Auth } from "../decorator/auth.decorator";
+import { PolicyGard } from "../decorator/policy.decorator";
+import { POLICIES } from "../role/policies";
 
 @Controller("product")
-@Auth()
+@PolicyGard(POLICIES.manageProduct)
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 

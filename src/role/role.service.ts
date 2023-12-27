@@ -24,8 +24,8 @@ export class RoleService {
     return this.roleModel.find();
   }
 
-  findOne(id: string) {
-    return this.roleModel.findById(id);
+  findOne(queries: Record<string, string>) {
+    return this.roleModel.findById(queries);
   }
 
   updatePolicies(id: string, user: User, updateRoleDto: UpdateRoleDto) {

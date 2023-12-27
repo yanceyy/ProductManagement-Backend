@@ -31,7 +31,7 @@ export class AuthService {
     const { id, roleId } = user;
     let role: Array<string> = [];
     if (roleId) {
-      const grantPermission = await this.roleService.findOne(roleId);
+      const grantPermission = await this.roleService.findOne({ _id: roleId });
       role = grantPermission.policies;
     }
 

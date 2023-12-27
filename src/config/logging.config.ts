@@ -1,26 +1,30 @@
 import { registerAs } from "@nestjs/config";
 import * as winston from "winston";
-import DailyRotateFile from "winston-daily-rotate-file";
+import "winston-daily-rotate-file";
 import type { ConsoleTransportInstance, FileTransportInstance } from "winston/lib/winston/transports";
+import DailyRotateFile from "winston-daily-rotate-file";
 
 export const configFactory = () => {
-  const transports: (FileTransportInstance | ConsoleTransportInstance | DailyRotateFile)[] = [
-    // File transports
-    new DailyRotateFile({
-      level: "error",
-      dirname: "logs",
-      filename: "error-%DATE%.log",
-      datePattern: "YYYY-MM-DD",
-      maxSize: "512k",
-    }),
-    new DailyRotateFile({
-      level: "info",
-      dirname: "logs",
-      filename: "combined-%DATE%.log",
-      datePattern: "YYYY-MM-DD",
-      maxSize: "512k",
-    }),
-  ];
+  const transports: (FileTransportInstance | ConsoleTransportInstance | DailyRotateFile)[] =
+    process.env.NODE_ENV !== "test"
+      ? [
+          // File transports
+          new winston.transports.DailyRotateFile({
+            level: "error",
+            dirname: "logs",
+            filename: "error-%DATE%.log",
+            datePattern: "YYYY-MM-DD",
+            maxSize: "512k",
+          }),
+          new winston.transports.DailyRotateFile({
+            level: "info",
+            dirname: "logs",
+            filename: "combined-%DATE%.log",
+            datePattern: "YYYY-MM-DD",
+            maxSize: "512k",
+          }),
+        ]
+      : [];
 
   if (process.env.NODE_ENV !== "production") {
     // Only add Console transport in non-production environments
