@@ -17,8 +17,9 @@ import { join } from "path";
 import { CategoryModule } from "./category/category.module";
 import { ProductModule } from "./product/product.module";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
-import { APP_GUARD } from "@nestjs/core";
+import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import throttleConfig from "./config/throttle.config";
+import { LogConsumeTimeInterceptor } from "@interceptor/logConsumeTime.interceptor";
 
 @Module({
   imports: [
@@ -69,6 +70,11 @@ import throttleConfig from "./config/throttle.config";
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LogConsumeTimeInterceptor,
+    }
+
   ],
 })
 export class AppModule {}

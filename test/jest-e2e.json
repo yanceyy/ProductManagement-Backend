@@ -7,9 +7,10 @@
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
-  "^@decorator(.*)$": "<rootDir>/../src/decorator$1",
-  "^@schema(.*)$": "<rootDir>/../src/schema$1",
-  "^@filter(.*)$": "<rootDir>/../src/filter$1",
-  "^@guard(.*)$": "<rootDir>/../src/guard$1"
+    "^@decorator(.*)$": "<rootDir>/../src/decorator$1",
+    "^@schema(.*)$": "<rootDir>/../src/schema$1",
+    "^@filter(.*)$": "<rootDir>/../src/filter$1",
+    "^@guard(.*)$": "<rootDir>/../src/guard$1",
+    "^@interceptor(.*)$": "<rootDir>/../src/interceptor$1"
   }
 }

@@ -21,7 +21,8 @@
       "@decorator/*": ["src/decorator/*"],
       "@schema/*": ["src/schema/*"],
       "@filter/*": ["src/filter/*"],
-      "@guard/*": ["src/guard/*"]
+      "@guard/*": ["src/guard/*"],
+      "@interceptor/*": ["src/interceptor/*"],
     }
   }
 }

@@ -30,12 +30,7 @@ export const configFactory = () => {
     // Only add Console transport in non-production environments
     transports.push(
       new winston.transports.Console({
-        format: winston.format.combine(
-          winston.format.timestamp(),
-          winston.format.ms(),
-          winston.format.splat(),
-          winston.format.json(),
-        ),
+        format: winston.format.combine(winston.format.timestamp(), winston.format.splat(), winston.format.json()),
       }),
     );
   }

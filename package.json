@@ -100,7 +100,8 @@
       "^@decorator(.*)$": "<rootDir>/decorator$1",
       "^@schema(.*)$": "<rootDir>/schema$1",
       "^@filter(.*)$": "<rootDir>/filter$1",
-      "^@guard(.*)$": "<rootDir>/guard$1"
+      "^@guard(.*)$": "<rootDir>/guard$1",
+      "^@interceptor(.*)$": "<rootDir>/interceptor$1"
     }
   },
   "lint-staged": {
