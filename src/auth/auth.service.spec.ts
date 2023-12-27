@@ -7,11 +7,11 @@ import {
   createInMemoryDatabaseModule,
 } from "../test/helper/inMemoryDatabase.mock.module";
 import { MongooseModule } from "@nestjs/mongoose";
-import { User, UserSchema } from "../schemas/user.schema";
+import { User, UserSchema } from "../schema/user.schema";
 import { CreateUserDto } from "../user/dto/create-user.dto";
 import { LoginDto } from "./dto/login.dto";
 import { RoleService } from "../role/role.service";
-import { Role, RoleSchema } from "../schemas/role.schema";
+import { Role, RoleSchema } from "../schema/role.schema";
 import { createWinstonModule } from "../test/helper/winston.mock.module";
 
 describe("AuthService", () => {

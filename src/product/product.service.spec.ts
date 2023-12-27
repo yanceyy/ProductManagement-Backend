@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { ProductService } from "./product.service";
 import { MongooseModule } from "@nestjs/mongoose";
-import { Product, ProductSchema } from "../schemas/product.schema";
+import { Product, ProductSchema } from "@schema/product.schema";
 import {
   closeInMemoryDatabaseConnection,
   createInMemoryDatabaseModule,

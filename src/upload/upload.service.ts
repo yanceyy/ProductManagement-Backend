@@ -1,7 +1,7 @@
-import { UploadMeta } from "../schemas/fileMeta.schema";
+import { UploadMeta } from "@schema/fileMeta.schema";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { User } from "../schemas/user.schema";
+import { User } from "@schema/user.schema";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()

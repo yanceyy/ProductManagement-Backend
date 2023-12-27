@@ -4,7 +4,7 @@ import { diskStorage } from "multer";
 import { UploadController } from "./upload.controller";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
-import { UploadMeta, UploadMetaSchema } from "../schemas/fileMeta.schema";
+import { UploadMeta, UploadMetaSchema } from "../schema/fileMeta.schema";
 import { UploadService } from "./upload.service";
 @Global()
 @Module({

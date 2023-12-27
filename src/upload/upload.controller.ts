@@ -1,6 +1,6 @@
 import { Controller, Delete, Param, Post, UploadedFile } from "@nestjs/common";
 import { RequireUploadImage } from "./uploadFileFilter";
-import { User } from "../schemas/user.schema";
+import { User } from "../schema/user.schema";
 import { Auth } from "../decorator/auth.decorator";
 import { CUser } from "../decorator/user.decorator";
 import { UploadService } from "./upload.service";

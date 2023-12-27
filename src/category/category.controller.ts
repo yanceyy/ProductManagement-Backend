@@ -2,10 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, UseFilters, Query } from "@n
 import { CategoryService } from "./category.service";
 import { CreateCategoryDto } from "./dto/create-category.dto";
 import { UpdateCategoryDto } from "./dto/update-category.dto";
-import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
-import { User } from "../schemas/user.schema";
-import { CUser } from "../decorator/user.decorator";
-import { PolicyGard } from "../decorator/policy.decorator";
+import { MongoErrorFilter } from "@filter/mongoDBErrors.filter";
+import { User } from "@schema/user.schema";
+import { CUser } from "@decorator/user.decorator";
+import { PolicyGard } from "@decorator/policy.decorator";
 import { POLICIES } from "../role/policies";
 
 @Controller("category")

@@ -3,9 +3,9 @@ import { RoleService } from "./role.service";
 import { CreateRoleDto } from "./dto/create-role.dto";
 import { UpdateRoleDto } from "./dto/update-role.dto";
 import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
-import { CUser } from "../decorator/user.decorator";
-import { User } from "../schemas/user.schema";
-import { PolicyGard } from "../decorator/policy.decorator";
+import { CUser } from "@decorator/user.decorator";
+import { User } from "@schema/user.schema";
+import { PolicyGard } from "@decorator/policy.decorator";
 import { POLICIES } from "./policies";
 
 @Controller("role")

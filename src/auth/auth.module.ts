@@ -2,13 +2,13 @@ import { Module } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthController } from "./auth.controller";
 import { MongooseModule } from "@nestjs/mongoose";
-import { User, UserSchema } from "../schemas/user.schema";
+import { User, UserSchema } from "../schema/user.schema";
 import { UserService } from "../user/user.service";
 import { JwtModule } from "@nestjs/jwt";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtStrategy } from "./provider/jwt.strategy";
 import { RoleService } from "../role/role.service";
-import { Role, RoleSchema } from "../schemas/role.schema";
+import { Role, RoleSchema } from "../schema/role.schema";
 
 @Module({
   imports: [

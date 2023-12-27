@@ -6,7 +6,7 @@ import {
   createInMemoryDatabaseModule,
 } from "../test/helper/inMemoryDatabase.mock.module";
 import { MongooseModule } from "@nestjs/mongoose";
-import { User, UserSchema } from "../schemas/user.schema";
+import { User, UserSchema } from "@schema/user.schema";
 import { createWinstonModule } from "../test/helper/winston.mock.module";
 
 describe("UserController", () => {

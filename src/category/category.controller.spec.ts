@@ -6,7 +6,7 @@ import {
   createInMemoryDatabaseModule,
 } from "../test/helper/inMemoryDatabase.mock.module";
 import { MongooseModule } from "@nestjs/mongoose";
-import { Category, CategorySchema } from "../schemas/category.schema";
+import { Category, CategorySchema } from "@schema/category.schema";
 import { createWinstonModule } from "../test/helper/winston.mock.module";
 
 describe("CategoryController", () => {

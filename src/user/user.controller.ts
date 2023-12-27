@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters } from "@
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
-import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
-import { PolicyGard } from "../decorator/policy.decorator";
+import { MongoErrorFilter } from "@filter/mongoDBErrors.filter";
+import { PolicyGard } from "@decorator/policy.decorator";
 import { POLICIES } from "../role/policies";
 
 @Controller("user")
