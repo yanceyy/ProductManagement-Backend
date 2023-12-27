@@ -73,8 +73,7 @@ import { LogConsumeTimeInterceptor } from "@interceptor/logConsumeTime.intercept
     {
       provide: APP_INTERCEPTOR,
       useClass: LogConsumeTimeInterceptor,
-    }
-
+    },
   ],
 })
 export class AppModule {}
