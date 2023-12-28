@@ -12,11 +12,9 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
   async create(createUserDto: CreateUserDto) {
     createUserDto.password = await argon2.hash(createUserDto.password);
+
     const createdCat = new this.userModel(createUserDto);
-    const res = await createdCat.save();
-    // @ts-expect-error res has implicit attributes like _doc
-    delete res._doc.password;
-    return res;
+    return await createdCat.save();
   }
 
   findAll() {

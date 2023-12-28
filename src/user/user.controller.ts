@@ -14,7 +14,11 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    const user = await this.userService.create(createUserDto);
+
+    // @ts-expect-error res has implicit attributes like _doc
+    delete user._doc.password;
+    return user;
   }
 
   @Get()
@@ -23,6 +27,14 @@ export class UserController {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return users.map(({ password, ...rest }) => rest);
+  }
+
+  @Get(":id")
+  async findOne(@Param("id") id: string) {
+    const user = await this.userService.findOne({ _id: id });
+
+    delete user.password;
+    return user;
   }
 
   @Patch(":id")
