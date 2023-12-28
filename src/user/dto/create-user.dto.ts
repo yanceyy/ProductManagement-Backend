@@ -1,20 +1,23 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber } from "class-validator";
+import { IsEmail, IsMongoId, IsNotEmpty, IsPhoneNumber, MaxLength, MinLength } from "class-validator";
 
 export class CreateUserDto {
   @IsNotEmpty({ message: "Username can't be empty" })
+  @MinLength(4)
+  @MaxLength(20)
   username: string;
 
   @IsNotEmpty({ message: "Password can't be empty" })
+  @MinLength(4)
+  @MaxLength(20)
   password: string;
 
-  @IsOptional()
   @IsEmail({}, { message: "Incorrect email format" })
+  @MaxLength(20)
   email: string;
 
-  @IsOptional()
   @IsPhoneNumber("AU", { message: "Incorrect phone number" })
   phone: string;
 
-  @IsOptional()
+  @IsMongoId()
   roleId: string;
 }

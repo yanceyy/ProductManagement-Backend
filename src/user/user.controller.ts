@@ -18,8 +18,11 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async findAll() {
+    const users = await this.userService.findAll();
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    return users.map(({ password, ...rest }) => rest);
   }
 
   @Patch(":id")

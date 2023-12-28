@@ -20,7 +20,7 @@ export class UserService {
   }
 
   findAll() {
-    return this.userModel.find();
+    return this.userModel.find().lean();
   }
 
   findOne(queries: Record<string, string>) {
