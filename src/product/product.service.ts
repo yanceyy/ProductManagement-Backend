@@ -57,7 +57,7 @@ export class ProductService {
       payload: { pageNum, pageSize, productName, productDesc },
     });
 
-    if (!productName && !productName) {
+    if (!productName && !productDesc) {
       return await this.findAll(pageNum, pageSize);
     }
 
