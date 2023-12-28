@@ -29,7 +29,7 @@ describe("UserService", () => {
 
     const user = await service.create(payload);
     expect(user.username).toEqual(payload.username);
-    expect(user.password).toBeUndefined();
+    expect(user.password).toBeDefined();
 
     expect(user).toHaveProperty("__v");
     expect(user).toHaveProperty("createTime");
