@@ -1,4 +1,5 @@
-import { IsMongoId, IsNotEmpty, IsNumber, IsOptional, MaxLength, MinLength } from "class-validator";
+import { IsIn, IsMongoId, IsNotEmpty, IsNumber, IsOptional, MaxLength, Min, MinLength } from "class-validator";
+import { Transform } from "class-transformer";
 
 export class CreateProductDto {
   @IsNotEmpty({ message: "product name can't be empty" })
@@ -8,6 +9,10 @@ export class CreateProductDto {
 
   @IsNotEmpty({ message: "price can't be empty" })
   @IsNumber()
+  @Transform(({ value }) => {
+    return Number(value);
+  })
+  @Min(0)
   price: number;
 
   @IsNotEmpty({ message: "product description can't be empty" })
@@ -16,6 +21,7 @@ export class CreateProductDto {
 
   @IsOptional()
   @IsNumber()
+  @IsIn([0, 1], { message: "status must be either 0 or 1" })
   status: number;
 
   @IsOptional()

@@ -1,15 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
 import { RoleService } from "./role.service";
 import { CreateRoleDto } from "./dto/create-role.dto";
 import { UpdateRoleDto } from "./dto/update-role.dto";
-import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
 import { CUser } from "@decorator/user.decorator";
 import { User } from "@schema/user.schema";
 import { PolicyGard } from "@decorator/policy.decorator";
 import { POLICIES } from "./policies";
 
 @Controller("role")
-@UseFilters(MongoErrorFilter)
 @PolicyGard(POLICIES.manageRole)
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}

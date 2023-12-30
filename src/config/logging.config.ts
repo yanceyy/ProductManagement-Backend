@@ -4,6 +4,19 @@ import "winston-daily-rotate-file";
 import type { ConsoleTransportInstance, FileTransportInstance } from "winston/lib/winston/transports";
 import DailyRotateFile from "winston-daily-rotate-file";
 
+// Create a custom format using printf
+const prettyPrintFormat = winston.format.printf(({ level, message, timestamp, stack }) => {
+  if (level === "error") {
+    return `${timestamp} ${level} ${message} \n${stack}`;
+  } else {
+    const { handler, ...res } = message;
+
+    const prettyMessage = JSON.stringify(res, null, 4); // Indent with 4 spaces
+
+    return `${timestamp} ${level} ${handler} \n${prettyMessage}`;
+  }
+});
+
 export const configFactory = () => {
   const transports: (FileTransportInstance | ConsoleTransportInstance | DailyRotateFile)[] =
     process.env.NODE_ENV !== "test"
@@ -26,19 +39,21 @@ export const configFactory = () => {
         ]
       : [];
 
-  if (process.env.NODE_ENV !== "production") {
-    // Only add Console transport in non-production environments
-    transports.push(
-      new winston.transports.Console({
-        format: winston.format.combine(winston.format.timestamp(), winston.format.splat(), winston.format.json()),
-      }),
-    );
-  }
+  transports.push(
+    new winston.transports.Console({
+      format: winston.format.combine(prettyPrintFormat),
+    }),
+  );
 
   return {
     level: process.env.LOG_LEVEL || "debug",
-    format: winston.format.combine(winston.format.timestamp(), winston.format.splat(), winston.format.json()),
+    format: winston.format.combine(
+      winston.format.errors({ stack: true }),
+      winston.format.timestamp(),
+      winston.format.json(),
+    ),
     transports: transports,
+    exceptionHandlers: transports,
   };
 };
 

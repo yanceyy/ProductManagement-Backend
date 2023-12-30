@@ -15,18 +15,18 @@ export class ProductService {
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
   ) {}
   create(createProductDto: CreateProductDto) {
-    this.logger.info({ name: `${ProductService.name}:create`, payload: createProductDto });
+    this.logger.info({ handler: `${ProductService.name}:create`, payload: createProductDto });
 
     return new this.productModel(createProductDto).save();
   }
 
   async findAll(pageNum: number, pageSize: number) {
-    this.logger.info({ name: `${ProductService.name}:findAll`, payload: { pageNum, pageSize } });
+    this.logger.info({ handler: `${ProductService.name}:findAll`, payload: { pageNum, pageSize } });
 
     const products = await paginationFind(this.productModel, pageNum, pageSize);
 
     this.logger.info({
-      name: `${ProductService.name}:search`,
+      handler: `${ProductService.name}:search`,
       results: { productCount: products.list.length },
     });
 
@@ -34,13 +34,13 @@ export class ProductService {
   }
 
   findOne(id: string) {
-    this.logger.info({ name: `${ProductService.name}:findOne`, payload: { id } });
+    this.logger.info({ handler: `${ProductService.name}:findOne`, payload: { id } });
 
     return this.productModel.findById(id);
   }
 
   update(id: string, updateProductDto: UpdateProductDto) {
-    this.logger.info({ name: `${ProductService.name}:update`, payload: { id, UpdateProductDto } });
+    this.logger.info({ handler: `${ProductService.name}:update`, payload: { id, UpdateProductDto } });
 
     return this.productModel.findOneAndUpdate({ _id: id }, updateProductDto, { new: true });
   }
@@ -53,7 +53,7 @@ export class ProductService {
 
   async search(pageNum: number, pageSize: number, productName: string, productDesc: string) {
     this.logger.info({
-      name: `${ProductService.name}:search`,
+      handler: `${ProductService.name}:search`,
       payload: { pageNum, pageSize, productName, productDesc },
     });
 
@@ -71,7 +71,7 @@ export class ProductService {
     const products = await paginationFind(this.productModel, pageNum, pageSize, condition);
 
     this.logger.info({
-      name: `${ProductService.name}:search`,
+      handler: `${ProductService.name}:search`,
       results: { productCount: products.list.length },
     });
 

@@ -1,13 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
-import { MongoErrorFilter } from "@filter/mongoDBErrors.filter";
 import { PolicyGard } from "@decorator/policy.decorator";
 import { POLICIES } from "../role/policies";
 
 @Controller("user")
-@UseFilters(MongoErrorFilter)
 @PolicyGard(POLICIES.manageUser)
 export class UserController {
   constructor(private readonly userService: UserService) {}

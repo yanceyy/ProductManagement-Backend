@@ -17,9 +17,11 @@ import { join } from "path";
 import { CategoryModule } from "./category/category.module";
 import { ProductModule } from "./product/product.module";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
-import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import throttleConfig from "./config/throttle.config";
 import { LogConsumeTimeInterceptor } from "@interceptor/logConsumeTime.interceptor";
+import { MongooseFilter } from "@filter/mongooseError.filter";
+import { GlobalExceptionFilter } from "@filter/GlobalException.filter";
 
 @Module({
   imports: [
@@ -73,6 +75,14 @@ import { LogConsumeTimeInterceptor } from "@interceptor/logConsumeTime.intercept
     {
       provide: APP_INTERCEPTOR,
       useClass: LogConsumeTimeInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: GlobalExceptionFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: MongooseFilter,
     },
   ],
 })

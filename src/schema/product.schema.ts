@@ -1,9 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { UseFilters } from "@nestjs/common";
-import { MongoErrorFilter } from "../filter/mongoDBErrors.filter";
 
 @Schema()
-@UseFilters(MongoErrorFilter)
 export class Product {
   @Prop({ required: true })
   name: string;

@@ -19,7 +19,7 @@ export class AuthService {
   async login(loginFormData: LoginDto) {
     const { username, password } = loginFormData;
 
-    this.logger.info({ name: `${AuthService.name}:login`, payload: { username } });
+    this.logger.info({ handler: `${AuthService.name}:login`, payload: { username } });
 
     const user = await this.userService.findOne({ username });
     if (!user) throw new BadRequestException("user doesn't exit");
@@ -41,7 +41,7 @@ export class AuthService {
       role,
     };
 
-    this.logger.info({ name: `${AuthService.name}:login:success`, payload: { username } });
+    this.logger.info({ handler: `${AuthService.name}:login:success`, payload: { username } });
 
     return {
       ...payload,
